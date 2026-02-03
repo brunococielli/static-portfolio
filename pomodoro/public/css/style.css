@@ -1,0 +1,222 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  background-color: grey; 
+  font-family: "Press Start 2P", monospace;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#clock {
+	display: inline;
+	font-size: 6rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+	padding-top: 50px;
+	padding-bottom: 80px;
+}
+
+button {
+  background: linear-gradient(145deg, #3a3a3a, #1f1f1f);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: "Press Start 2P", monospace;
+  box-shadow: 0 5px 0 #111;
+  transition: all 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 #111;
+}
+
+button:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #111;
+}
+
+#startBtn {
+  background: linear-gradient(145deg, #2ecc71, #1e9f55);
+  box-shadow: 0 5px 0 #166c3b;
+	margin-bottom: 20px
+}
+
+#pauseBtn {
+  background: linear-gradient(145deg, #3498db, #1f6fa8);
+  box-shadow: 0 5px 0 #164e75;
+}
+
+#resetBtn {
+  background: linear-gradient(145deg, #e74c3c, #b03024);
+  box-shadow: 0 5px 0 #7a2018;
+}
+
+#settingsBtn,
+#statsBtn,
+#muteBtn {
+  background: linear-gradient(145deg, #555, #333);
+  font-size: 0.7rem;
+  box-shadow: 0 4px 0 #222;
+}
+
+#statsBtn {
+  margin-top: 13px;
+}
+
+div > button {
+  margin: 8px;
+}
+
+#settings {
+  display: none; 
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 25px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin: 8px 0;
+}
+
+input {
+  width: 85px;
+  padding: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: inherit; 
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+	font-family: "Press Start 2P", monospace;
+}
+
+input:focus {
+  border-color: orange;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 6px orange
+}
+
+input:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+#change {
+  background: linear-gradient(145deg, orange, #c77c00);
+  box-shadow: 0 5px 0 #8a5600;
+}
+
+#change:hover {
+  background: linear-gradient(145deg, #ffb733, #d48800);
+}
+
+.statsLabel {
+	color: rgb(245, 152, 152);
+}
+
+.flash {
+  transform: scale(0.95);
+  background-color: #888;
+  transition: background-color 0.1s, transform 0.1s;
+}
+
+.title-container {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.title-container h1 {
+  margin: 0;
+  display: inline-block;
+}
+
+#muteBtn {
+  position: absolute;
+  right: -115px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+}
+
+#codeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  padding: 0.7rem 1.35rem;
+  border-radius: 8px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(88, 166, 255, 0.15),
+    rgba(88, 166, 255, 0.05)
+  );
+  color: #0a3069;
+  border-color: #0a3069;
+
+
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+
+  box-shadow:
+    0 0 12px rgba(88, 166, 255, 0.35),
+    inset 0 0 10px rgba(88, 166, 255, 0.25);
+
+  animation: codePulse 2.2s ease-in-out infinite;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+@keyframes codePulse {
+  0%, 100% {
+    box-shadow:
+      0 0 12px rgba(88, 166, 255, 0.35),
+      inset 0 0 10px rgba(88, 166, 255, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 22px rgba(88, 166, 255, 0.75),
+      inset 0 0 14px rgba(88, 166, 255, 0.4);
+  }
+}
+
+#codeBtn:hover {
+  transform: translateY(-2px) scale(1.03);
+  background-color: rgba(88, 166, 255, 0.2);
+  animation: none;
+  box-shadow:
+    0 0 28px rgba(88, 166, 255, 0.9),
+    inset 0 0 18px rgba(88, 166, 255, 0.45);
+}
+
+#codeBtn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow:
+    0 0 10px rgba(88, 166, 255, 0.5),
+    inset 0 0 10px rgba(88, 166, 255, 0.3);
+}
+
+#codeBtn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(88, 166, 255, 0.6),
+    0 0 25px rgba(88, 166, 255, 0.8);
+}

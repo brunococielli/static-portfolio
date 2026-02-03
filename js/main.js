@@ -34,7 +34,7 @@ project1.addEventListener("click", () => {
 
 project2.addEventListener("click", () => {
 	window.open(
-    "https://github.com/brunococielli/pomodoro-timer-pro",
+    "pomodoro/public/index.html",
     "_blank",
     "noopener,noreferrer"
   )
