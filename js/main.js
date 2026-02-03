@@ -25,11 +25,19 @@ links.forEach(link => {
 })
 
 project1.addEventListener("click", () => {
-	window.location.href = "/project-2"
+	window.open(
+    "https://github.com/brunococielli/personal-gallery",
+    "_blank",
+    "noopener,noreferrer"
+  )
 })
 
 project2.addEventListener("click", () => {
-	window.location.href = "/project-3"
+	window.open(
+    "https://github.com/brunococielli/pomodoro-timer-pro",
+    "_blank",
+    "noopener,noreferrer"
+  )
 })
 
 document.querySelector('.hero-nav a[data-section="projects"]').classList.add("active")
