@@ -34,7 +34,7 @@ project1.addEventListener("click", () => {
 
 project2.addEventListener("click", () => {
 	window.open(
-    "pomodoro/public/index.html",
+    "/pomodoro/",
     "_blank",
     "noopener,noreferrer"
   )
