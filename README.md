@@ -1,4 +1,4 @@
-## Static Portfolio 🌐
+## Static Portfolio
 A personal static portfolio website built to showcase projects, skills, and contact information in a clean and accessible way.  
 The project focuses on frontend fundamentals, responsive layout, and clear presentation of work.
 

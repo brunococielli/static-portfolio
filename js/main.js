@@ -24,6 +24,21 @@ links.forEach(link => {
   })
 })
 
+const copyEmail = (e) => {
+ e.preventDefault()
+
+  const email = "cociellited@gmail.com"
+  const msg = e.target.nextElementSibling
+
+  navigator.clipboard.writeText(email).then(() => {
+    msg.style.opacity = "1"
+
+    setTimeout(() => {
+      msg.style.opacity = "0"
+    }, 1500)
+  })
+}
+
 project1.addEventListener("click", () => {
 	window.open(
     "https://github.com/brunococielli/personal-gallery",
@@ -34,7 +49,7 @@ project1.addEventListener("click", () => {
 
 project2.addEventListener("click", () => {
 	window.open(
-    "/pomodoro/",
+    "https://github.com/brunococielli/pomodoro-timer-pro",
     "_blank",
     "noopener,noreferrer"
   )
