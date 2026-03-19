@@ -266,7 +266,7 @@ section h2 {
 .copy-msg {
   margin-left: 8px;
   font-size: 0.9rem;
-  color: #4caf50;
+  color: #2b8f2e;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -281,4 +281,51 @@ section h2 {
   width: 18px;
   height: 18px;
   object-fit: contain;
+}
+
+.circles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.circles span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  animation: floatUp linear infinite;
+	box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.circles span:nth-child(1)  { left: 5%;  width: 12px; height: 12px; animation-duration: 12s; }
+.circles span:nth-child(2)  { left: 12%; width: 18px; height: 18px; animation-duration: 16s; }
+.circles span:nth-child(3)  { left: 20%; width: 10px; height: 10px; animation-duration: 10s; }
+.circles span:nth-child(4)  { left: 28%; width: 14px; height: 14px; animation-duration: 14s; }
+.circles span:nth-child(5)  { left: 36%; width: 20px; height: 20px; animation-duration: 18s; }
+.circles span:nth-child(6)  { left: 44%; width: 8px;  height: 8px;  animation-duration: 11s; }
+.circles span:nth-child(7)  { left: 52%; width: 16px; height: 16px; animation-duration: 15s; }
+.circles span:nth-child(8)  { left: 60%; width: 12px; height: 12px; animation-duration: 13s; }
+.circles span:nth-child(9)  { left: 68%; width: 22px; height: 22px; animation-duration: 19s; }
+.circles span:nth-child(10) { left: 76%; width: 9px;  height: 9px;  animation-duration: 10s; }
+.circles span:nth-child(11) { left: 84%; width: 15px; height: 15px; animation-duration: 14s; }
+.circles span:nth-child(12) { left: 92%; width: 11px; height: 11px; animation-duration: 12s; }
+
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.5; 
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.1);
+    opacity: 0;
+  }
 }
