@@ -1,133 +1,220 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Bruno - Junior Software Engineer</title>
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bruno Cocielli</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <div class="nav-left">
+          <span>Junior Software Engineer</span>
+        </div>
+        <div class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">Projects</a>
+          <a href="#">More...</a>
+        </div>
+      </nav>
 
-	<link rel="icon" type="image/png" href="images/favicon.png">
-	<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
+      <div class="theme-section">
+        <div class="theme-row">
+          <strong>Theme:</strong>
+          <div class="theme-options">
+            <span onclick="setTheme('light')">Light</span>
+            <span onclick="setTheme('dark')">Dark</span>
+          </div>
+        </div>
+        <div class="theme-row">
+          <strong>Accent:</strong>
+          <div class="color-dots">
+            <div
+              class="dot"
+              style="background: var(--rosewater)"
+              onclick="setAccent('rosewater')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--flamingo)"
+              onclick="setAccent('flamingo')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--pink)"
+              onclick="setAccent('pink')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--mauve)"
+              onclick="setAccent('mauve')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--red)"
+              onclick="setAccent('red')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--maroon)"
+              onclick="setAccent('maroon')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--peach)"
+              onclick="setAccent('peach')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--yellow)"
+              onclick="setAccent('yellow')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--green)"
+              onclick="setAccent('green')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--teal)"
+              onclick="setAccent('teal')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--sky)"
+              onclick="setAccent('sky')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--sapphire)"
+              onclick="setAccent('sapphire')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--blue)"
+              onclick="setAccent('blue')"
+            ></div>
+            <div
+              class="dot"
+              style="background: var(--lavender)"
+              onclick="setAccent('lavender')"
+            ></div>
+          </div>
+        </div>
+      </div>
 
-	<div class="circles">
-		<span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span>
-	</div>
+      <header class="hero">
+        <h1>Hey! I'm <span class="color">Bruno Cocielli</span></h1>
+        <p class="bio">
+          I'm a <span class="color">junior software engineer</span> focused on
+          <span class="color">backend</span>. I've developed fullstack projects
+          using modern web technologies, working across both frontend and
+          backend. Currently looking for an opportunity where I can grow,
+          contribute, and build impactful software.
+        </p>
+        <div class="social-links">
+          <a href="#">GitHub</a> | <a href="#">LinkedIn</a> |
+          <a href="#">Gmail</a>
+        </div>
+      </header>
 
-	<header class="hero">
-		<div class="hero-left">
-			<h1>Bruno Cocielli</h1>
-			<span class="role">Junior Software Engineer  ·  Brazil</span>
-		</div>
+      <section>
+        <h2>Featured Projects <a href="#">View all projects →</a></h2>
+        <div class="projects">
+          <div class="card">
+            <h3>personal-gallery</h3>
+            <p>
+              An application that allows users to create an account,
+              authenticate, and manage their own private image collection.
+            </p>
+            <div class="tags">
+              <span class="tag">javascript</span> <span class="tag">node</span>
+              <span class="tag">prisma</span>
+              <span class="tag">postgreSQL</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>pomodoro-timer</h3>
+            <p>
+              Includes persistent settings, detailed study statistics, and
+              quality-of-life features like dark mode and sound alerts.
+            </p>
+            <div class="tags">
+              <span class="tag">javascript</span>
+              <span class="tag">electron</span> <span class="tag">html</span>
+              <span class="tag">css</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-		<nav class="hero-nav">
-			<a data-section="projects">PROJECTS</a>
-			<a data-section="resume">RESUME</a>
-			<a data-section="contact">CONTACT</a>
-		</nav>
-	</header>
+      <section>
+        <h2>Playground / Fun Stuff</h2>
+        <div class="dashboard">
+          <div class="dash-card">
+            <h4>Counter</h4>
+            <div class="clicker">
+              <span
+                id="counter"
+                class="text-accent"
+                style="font-size: 2rem; font-weight: bold"
+                >0</span
+              ><br />
+              <button id="clickBtn">CLICK ME</button>
+              <p>
+                you've clicked
+                <span id="normalCount" style="color: var(--accent)">0</span>
+                times
+              </p>
+              <p
+                id="sync-status"
+                style="
+                  font-size: 0.7rem;
+                  color: var(--subtext0);
+                  opacity: 0;
+                  transition: opacity 0.2s;
+                "
+              >
+                ● Takes a bit to sync...
+              </p>
+            </div>
+            <p
+              style="
+                font-size: 0.75rem;
+                color: var(--subtext0);
+                text-align: center;
+                margin-top: 1rem;
+              "
+            >
+              A global counter.
+            </p>
+          </div>
 
-	<main class="content">
-		<section id="projects" class="page">
+          <div class="dash-card">
+            <h4>Location</h4>
+          </div>
 
-			<div class="projects-grid">
-				<div class="project-card" id="project1">
-					<img src="images/galerypic.png">
-					<span class="project-title">· Project 1 <br> Click to see Repo
-					</span>
-				</div>
+          <div class="dash-card">
+            <h4>Spotify</h4>
+          </div>
+        </div>
+      </section>
 
-				<div class="project-card" id="project2">
-					<img src="images/timerpic.png">
-					<span class="project-title">· Project 2 <br> Click to see Repo
-					</span>
-				</div>
-			</div>
-		</section>
-
-		<section id="resume" class="page resume">
-			
-			<div class="resume-card">
-				<div class="resume-section">
-					<h3>Skills</h3>
-					<ul>
-						<li><b>JavaScript</b>, <b>Node.js</b>, <b>React.js</b>, Express, HTML, CSS</li>
-						<li><b>60+ LeetCode exercises</b>, Git & GitHub</li>
-						<li>Comfortable picking up new languages and frameworks</li>
-					</ul>
-				</div>
-
-				<div class="resume-section">
-					<h3>Education</h3>
-					<p>Associate Degree in Systems Analysis and Development</p>
-					<p class="muted">
-						Self-taught developer with consistent daily study alongside formal education
-					</p>
-				</div>
-
-				<div class="resume-section">
-					<h3>Experience</h3>
-					<p>Personal projects focused on web development and backend fundamentals</p>
-				</div>
-
-				<div class="resume-section">
-					<h3>Languages</h3>
-					<p> · English ( Fluent ) · Portuguese ( Native ) · Japanese ( Intermediate )</p>
-				</div>
-
-				<a
-					class="resume-download"
-					href="assets/BRUNO COCIELLI - RESUME.pdf"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Download PDF
-				</a>
-			</div>
-
-		</section>
-
-		<section id="contact" class="page contact">
-			
-			<div class="contact-card">
-				<p class="contact-item">
-					<img src="images/gmailicon.png" class="icon" />
-					<a href="#" onclick="copyEmail(event)">
-						cociellited@gmail.com
-					</a>
-					<span class="copy-msg">Copied!</span>
-				</p>
-
-				<p class="contact-item">
-					<img src="images/linkedinicon.png" class="icon" />
-					<a
-						href="https://www.linkedin.com/in/bruno-cocielli-075160363/"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						LinkedIn
-					</a>
-				</p>
-
-				<p class="contact-item">
-					<img src="images/giticon.png" class="icon" />
-					<a
-						href="https://github.com/brunococielli"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						GitHub
-					</a>
-				</p>
-			</div>
-			
-		</section>
-	</main>
-
-	<script src="./js/main.js"></script>
-</body>
+      <footer>
+        <div>© 2026 Bruno Cocielli</div>
+        <div style="text-align: right">
+          <div class="status">
+            <div class="dot-status"></div>
+            Brazil
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
 </html>
