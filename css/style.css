@@ -239,6 +239,9 @@ h2 a {
   color: var(--subtext0);
   margin-bottom: 1rem;
   letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between; 
+  position: relative;
 }
 
 .list-item {
@@ -327,4 +330,60 @@ footer {
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--accent) var(--mantle);
+}
+
+.info-container {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+}
+
+.info-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px; 
+  cursor: help;
+  transition: all 0.2s ease;
+  padding-top: 1px; 
+}
+
+.info-icon:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.info-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 25px; 
+  right: 0;
+  width: 220px;
+  background-color: var(--mantle);
+  border: 1px solid var(--surface0);
+  color: var(--text);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateY(-10px);
+  z-index: 9999; 
+  pointer-events: none; 
+}
+
+.info-container:hover .info-tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }

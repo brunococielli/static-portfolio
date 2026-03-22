@@ -59,24 +59,24 @@ clickBtn.addEventListener('click', () => {
 let syncing = false
 
 async function syncClicks() {
-  if (syncing || pendingClicks === 0) return;
+  if (syncing || pendingClicks === 0) return
 
-  syncing = true;
+  syncing = true
 
   while (pendingClicks > 0) {
     try {
-      await fetch(`${targetAPI}/up`, { mode: 'no-cors' });
-      pendingClicks--;
-      localStorage.setItem('pendingClicks', pendingClicks);
+      await fetch(`${targetAPI}/up`, { mode: 'no-cors' })
+      pendingClicks--
+      localStorage.setItem('pendingClicks', pendingClicks)
 
-      await new Promise((r) => setTimeout(r, 100));
+      await new Promise((r) => setTimeout(r, 100))
     } catch (e) {
-      console.error('Sync interrupted', e);
-      break; 
+      console.error('Sync interrupted', e)
+      break
     }
   }
 
-  syncing = false;
+  syncing = false
 }
 
 setInterval(() => {
