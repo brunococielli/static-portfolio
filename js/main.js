@@ -16,6 +16,7 @@ normalCount.textContent = personalCount.toLocaleString()
 counterEl.textContent = '...'
 setSyncingText()
 
+//CLICKER LOGIC
 async function init() {
   try {
     const res = await fetch(`${proxy}${encodeURIComponent(targetAPI)}`)
@@ -93,6 +94,7 @@ function setSyncingText() {
   }
 }
 
+//THEME LOGIC
 const setTheme = (theme) => {
   document.documentElement.setAttribute('data-theme', theme)
 }
@@ -101,6 +103,7 @@ const setAccent = (colorName) => {
   document.documentElement.style.setProperty('--accent', `var(--${colorName})`)
 }
 
+//MAP LOGIC
 const MAPTILER_KEY = 'jrgSeWvWvZCzG5Qsld0w'
 maptilersdk.config.apiKey = MAPTILER_KEY
 
@@ -136,3 +139,48 @@ function updateLocationTime() {
 
 setInterval(updateLocationTime, 1000)
 updateLocationTime()
+
+//GITHUB LOGIC
+const GH_USER = 'brunococielli'
+
+async function updateGithub() {
+  try {
+    const response = await fetch(
+      `https://api.github.com/users/${GH_USER}/events/public`
+    )
+    const events = await response.json()
+    const lastPush = events.find((e) => e.type === 'PushEvent')
+
+    if (lastPush) {
+      const repoPath = lastPush.repo.name
+      const repoName = repoPath.split('/')[1]
+      const commitSha = lastPush.payload.head
+      const commitRes = await fetch(
+        `https://api.github.com/repos/${repoPath}/commits/${commitSha}`
+      )
+      const commitData = await commitRes.json()
+
+      document.getElementById('gh-repo').textContent = repoName
+      document.getElementById('gh-message').textContent =
+        commitData.commit.message
+      document.getElementById('gh-date').innerHTML =
+        `${timeAgo(new Date(lastPush.created_at))} <span style="opacity:0.4; font-size:0.7rem;">[${commitSha.substring(0, 7)}]</span>`
+
+      document.getElementById('gh-link').href = `https://github.com/${repoPath}`
+    }
+  } catch (e) {
+    console.error('GH Error:', e)
+  }
+}
+
+function timeAgo(date) {
+  const seconds = Math.floor((new Date() - date) / 1000)
+  let interval = Math.floor(seconds / 3600)
+  if (interval >= 1) return interval + 'h ago'
+  interval = Math.floor(seconds / 60)
+  if (interval >= 1) return interval + 'm ago'
+  return Math.floor(seconds) + 's ago'
+}
+
+updateGithub()
+setInterval(updateGithub, 300000)

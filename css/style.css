@@ -431,3 +431,61 @@ footer {
 .maptiler-attribution {
   display: none !important;
 }
+
+.github-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+  gap: 12px;
+}
+
+.github-card .location-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.gh-content-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.gh-content-link:hover {
+  transform: translateY(-2px);
+}
+
+.gh-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--surface0);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--surface1);
+  margin-top: 15px;
+  transition: border-color 0.2s ease;
+}
+
+.gh-content-link:hover .gh-content {
+  border-color: var(--accent);
+}
+
+.repo-name {
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.commit-msg {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--subtext0);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
