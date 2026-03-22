@@ -100,3 +100,39 @@ const setTheme = (theme) => {
 const setAccent = (colorName) => {
   document.documentElement.style.setProperty('--accent', `var(--${colorName})`)
 }
+
+const MAPTILER_KEY = 'jrgSeWvWvZCzG5Qsld0w'
+maptilersdk.config.apiKey = MAPTILER_KEY
+
+const map = new maptilersdk.Map({
+  container: 'map',
+  style: maptilersdk.MapStyle.DATAVIZ.DARK,
+  center: [-47.0608, -22.9064],
+  zoom: 11,
+
+  dragPan: true,
+  scrollZoom: true,
+  doubleClickZoom: true,
+  touchZoomRotate: true,
+  navigationControl: false,
+  geolocateControl: false,
+  attributionControl: false,
+})
+
+function updateLocationTime() {
+  const timeEl = document.getElementById('local-time')
+  if (!timeEl) return
+
+  const options = {
+    timeZone: 'America/Sao_Paulo',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }
+
+  timeEl.textContent = new Date().toLocaleTimeString('en-GB', options)
+}
+
+setInterval(updateLocationTime, 1000)
+updateLocationTime()

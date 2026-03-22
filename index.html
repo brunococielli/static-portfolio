@@ -9,6 +9,11 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.0.3/maptiler-sdk.umd.min.js"></script>
+    <link
+      href="https://cdn.maptiler.com/maptiler-sdk-js/v2.0.3/maptiler-sdk.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
@@ -166,8 +171,8 @@
                   <p>
                     Since this site is serverless and
                     <span class="color">counterAPI</span>
-                    only gets one upload at a time, I had to create a way to keep
-                    it synced both visually and internally.
+                    only gets one upload at a time, I had to create a way to
+                    keep it synced both visually and internally.
                   </p>
                 </div>
               </div>
@@ -209,8 +214,31 @@
             </p>
           </div>
 
-          <div class="dash-card">
-            <h4>Location</h4>
+          <div class="dash-card location-card">
+            <h4
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+              "
+            >
+              <span>Location</span>
+              <div class="info-container">
+                <div class="info-icon">?</div>
+                <div class="info-tooltip">
+                  Used <span class="color">maptiler API</span>
+                  to make this cool interactive map to show where I'm based at
+                </div>
+              </div>
+            </h4>
+
+            <div id="map" class="map-container"></div>
+
+            <div class="location-footer">
+              <span>Campinas, BR</span>
+              <span id="local-time" class="color">00:00:00</span>
+            </div>
           </div>
 
           <div class="dash-card">
@@ -224,11 +252,11 @@
         <div style="text-align: right">
           <div class="status">
             <div class="dot-status"></div>
-            Brazil
+            Status
           </div>
         </div>
       </footer>
     </div>
-    <script src="js/main.js"></script>
+    <script defer src="js/main.js"></script>
   </body>
 </html>
