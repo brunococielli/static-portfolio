@@ -30,10 +30,10 @@ async function init() {
     const parsed = JSON.parse(data.contents)
 
     apiCount = parsed.count
-    updateStatus('Clicker', true) 
+    updateStatus('Clicker', true)
   } catch (e) {
     apiCount = 0
-    updateStatus('Clicker', false) 
+    updateStatus('Clicker', false)
   }
 
   const localTotal = maxSeen
