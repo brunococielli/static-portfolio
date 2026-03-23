@@ -12,6 +12,12 @@ let personalCount = Number(localStorage.getItem('personalCount')) || 0
 let pendingClicks = Number(localStorage.getItem('pendingClicks')) || 0
 let maxSeen = Number(localStorage.getItem('maxSeenCount')) || 0
 
+const systemHealth = {
+  Clicker: true,
+  Map: true,
+  GitHub: true,
+}
+
 normalCount.textContent = personalCount.toLocaleString()
 counterEl.textContent = '...'
 setSyncingText()
@@ -24,8 +30,10 @@ async function init() {
     const parsed = JSON.parse(data.contents)
 
     apiCount = parsed.count
-  } catch {
+    updateStatus('Clicker', true) 
+  } catch (e) {
     apiCount = 0
+    updateStatus('Clicker', false) 
   }
 
   const localTotal = maxSeen
@@ -69,10 +77,12 @@ async function syncClicks() {
       await fetch(`${targetAPI}/up`, { mode: 'no-cors' })
       pendingClicks--
       localStorage.setItem('pendingClicks', pendingClicks)
+      updateStatus('Clicker', true)
 
       await new Promise((r) => setTimeout(r, 100))
     } catch (e) {
       console.error('Sync interrupted', e)
+      updateStatus('Clicker', false)
       break
     }
   }
@@ -122,6 +132,9 @@ const map = new maptilersdk.Map({
   attributionControl: false,
 })
 
+map.on('load', () => updateStatus('MapTiler', true))
+map.on('error', () => updateStatus('MapTiler', false))
+
 function updateLocationTime() {
   const timeEl = document.getElementById('local-time')
   if (!timeEl) return
@@ -167,9 +180,12 @@ async function updateGithub() {
         `${timeAgo(new Date(lastPush.created_at))} <span style="opacity:0.4; font-size:0.7rem;">[${commitSha.substring(0, 7)}]</span>`
 
       document.getElementById('gh-link').href = `https://github.com/${repoPath}`
+
+      updateStatus('GitHub', true)
     }
   } catch (e) {
     console.error('GH Error:', e)
+    updateStatus('GitHub', false)
   }
 }
 
@@ -184,3 +200,27 @@ function timeAgo(date) {
 
 updateGithub()
 setInterval(updateGithub, 300000)
+
+//DOT LOGIC
+function updateStatus(apiName, isSuccessful) {
+  const dot = document.getElementById('status-dot')
+  const statusDiv = document.querySelector('.status')
+
+  systemHealth[apiName] = isSuccessful
+
+  const allHealthy = Object.values(systemHealth).every(
+    (status) => status === true
+  )
+
+  if (allHealthy) {
+    dot.classList.remove('dot-offline')
+    statusDiv.title = 'All systems operational'
+  } else {
+    dot.classList.add('dot-offline')
+
+    const offlineApis = Object.keys(systemHealth).filter(
+      (key) => !systemHealth[key]
+    )
+    statusDiv.title = `System Alert: Offline -> ${offlineApis.join(', ')}`
+  }
+}

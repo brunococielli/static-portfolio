@@ -294,14 +294,21 @@ footer {
 .status {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+  cursor: help;
 }
 .dot-status {
   width: 8px;
   height: 8px;
-  background: var(--green);
   border-radius: 50%;
+  background-color: var(--green);
+  transition: background-color 0.3s ease;
   box-shadow: 0 0 8px var(--green);
+}
+
+.dot-offline {
+  background-color: var(--red) !important;
+  box-shadow: 0 0 8px var(--red) !important;
 }
 
 .color {
