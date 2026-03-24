@@ -623,3 +623,15 @@ footer {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.icon-folder {
+  width: 24px;   
+  height: 24px;
+  color: var(--accent); 
+  display: inline-block;
+  vertical-align: middle;
+}
+
+a:hover .icon-folder {
+  filter: brightness(1.2);
+}
