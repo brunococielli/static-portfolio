@@ -22,6 +22,25 @@ normalCount.textContent = personalCount.toLocaleString()
 counterEl.textContent = '...'
 setSyncingText()
 
+//THEME LOGIC
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme)
+  localStorage.setItem('theme', theme)
+}
+
+function setAccent(colorName) {
+  document.documentElement.style.setProperty('--accent', `var(--${colorName})`)
+  localStorage.setItem('accent', colorName)
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'dark'
+  const savedAccent = localStorage.getItem('accent') || 'red'
+
+  setTheme(savedTheme)
+  setAccent(savedAccent)
+})
+
 //CLICKER LOGIC
 async function init() {
   try {
@@ -102,15 +121,6 @@ function setSyncingText() {
   } else {
     statusEl.style.opacity = '0'
   }
-}
-
-//THEME LOGIC
-const setTheme = (theme) => {
-  document.documentElement.setAttribute('data-theme', theme)
-}
-
-const setAccent = (colorName) => {
-  document.documentElement.style.setProperty('--accent', `var(--${colorName})`)
 }
 
 //MAP LOGIC
