@@ -608,3 +608,18 @@ footer {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.page {
+  display: none;
+  opacity: 0;
+}
+
+.page.active {
+  display: block;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

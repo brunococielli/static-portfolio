@@ -124,26 +124,38 @@ function setSyncingText() {
 }
 
 //MAP LOGIC
+let mapInstance = null
 const MAPTILER_KEY = 'jrgSeWvWvZCzG5Qsld0w'
 maptilersdk.config.apiKey = MAPTILER_KEY
 
-const map = new maptilersdk.Map({
-  container: 'map',
-  style: maptilersdk.MapStyle.DATAVIZ.DARK,
-  center: [-47.0608, -22.9064],
-  zoom: 11,
+function initMap() {
+  const mapContainer = document.getElementById('map')
 
-  dragPan: true,
-  scrollZoom: true,
-  doubleClickZoom: true,
-  touchZoomRotate: true,
-  navigationControl: false,
-  geolocateControl: false,
-  attributionControl: false,
-})
+  if (!mapContainer) return
 
-map.on('load', () => updateStatus('MapTiler', true))
-map.on('error', () => updateStatus('MapTiler', false))
+
+  if (mapInstance) {
+    mapInstance.resize()
+    return
+  }
+
+  mapInstance = new maptilersdk.Map({
+    container: 'map',
+    style: maptilersdk.MapStyle.DATAVIZ.DARK,
+    center: [-47.0608, -22.9064],
+    zoom: 11,
+    dragPan: true,
+    scrollZoom: true,
+    doubleClickZoom: true,
+    touchZoomRotate: true,
+    navigationControl: false,
+    geolocateControl: false,
+    attributionControl: false,
+  })
+
+  mapInstance.on('load', () => updateStatus('MapTiler', true))
+  mapInstance.on('error', () => updateStatus('MapTiler', false))
+}
 
 function updateLocationTime() {
   const timeEl = document.getElementById('local-time')
@@ -234,3 +246,64 @@ function updateStatus(apiName, isSuccessful) {
     statusDiv.title = `System Alert: Offline -> ${offlineApis.join(', ')}`
   }
 }
+
+//ROUTER LOGIC
+history.scrollRestoration = 'manual'
+
+const pages = document.querySelectorAll('.page')
+const links = document.querySelectorAll('nav a')
+
+function showPage(id) {
+  let found = false
+
+  pages.forEach((page) => {
+    if (page.id === id) {
+      page.classList.add('active')
+      found = true
+
+      if (id === 'home') {
+        if (typeof initMap === 'function') initMap()
+        if (typeof updateGithub === 'function') updateGithub()
+      }
+    } else {
+      page.classList.remove('active')
+    }
+  })
+
+  if (!found) {
+    document.getElementById('home')?.classList.add('active')
+  }
+}
+
+function updateActiveLink(current) {
+  links.forEach((link) => {
+    link.classList.remove('active')
+
+    if (link.getAttribute('href') === `#${current}`) {
+      link.classList.add('active')
+    }
+  })
+}
+
+function handleRoute() {
+  const hash = window.location.hash.replace('#', '') || 'home'
+
+  showPage(hash)
+  updateActiveLink(hash)
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'instant',
+  })
+}
+
+links.forEach((link) => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault()
+    const target = link.getAttribute('href')
+    window.location.hash = target
+  })
+})
+
+handleRoute()
+window.addEventListener('hashchange', handleRoute)
