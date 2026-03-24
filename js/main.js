@@ -1,6 +1,3 @@
-const counterEl = document.getElementById('counter')
-const clickBtn = document.getElementById('clickBtn')
-const normalCount = document.getElementById('normalCount')
 const statusEl = document.getElementById('sync-status')
 
 const targetAPI =
@@ -11,16 +8,14 @@ let apiCount = 0
 let personalCount = Number(localStorage.getItem('personalCount')) || 0
 let pendingClicks = Number(localStorage.getItem('pendingClicks')) || 0
 let maxSeen = Number(localStorage.getItem('maxSeenCount')) || 0
+let syncing = false
+let clickListenerAttached = false
 
 const systemHealth = {
   Clicker: true,
   Map: true,
   GitHub: true,
 }
-
-normalCount.textContent = personalCount.toLocaleString()
-counterEl.textContent = '...'
-setSyncingText()
 
 //THEME LOGIC
 function setTheme(theme) {
@@ -42,86 +37,100 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 //CLICKER LOGIC
-async function init() {
+async function initClicker() {
+  const counterEl = document.getElementById('counter')
+  const normalCount = document.getElementById('normalCount')
+  const clickBtn = document.getElementById('clickBtn')
+
+  if (!counterEl || !clickBtn) return
+
+  normalCount.textContent = personalCount.toLocaleString()
+  if (counterEl.textContent === '') counterEl.textContent = '...'
+
+  updateSyncingUI()
+
   try {
     const res = await fetch(`${proxy}${encodeURIComponent(targetAPI)}`)
     const data = await res.json()
     const parsed = JSON.parse(data.contents)
 
     apiCount = parsed.count
+    maxSeen = Math.max(maxSeen, apiCount)
+
+    counterEl.textContent = maxSeen.toLocaleString()
+    localStorage.setItem('maxSeenCount', maxSeen)
     updateStatus('Clicker', true)
   } catch (e) {
-    apiCount = 0
     updateStatus('Clicker', false)
   }
 
-  const localTotal = maxSeen
-  const apiTotal = apiCount
+  updateSyncingUI()
 
-  maxSeen = Math.max(localTotal, apiTotal)
+  if (!clickListenerAttached) {
+    clickBtn.addEventListener('click', () => {
+      personalCount++
+      pendingClicks++
+      maxSeen++
 
-  counterEl.textContent = maxSeen.toLocaleString()
-  setSyncingText()
-  localStorage.setItem('maxSeenCount', maxSeen)
-}
+      document.getElementById('normalCount').textContent =
+        personalCount.toLocaleString()
+      document.getElementById('counter').textContent = maxSeen.toLocaleString()
 
-init()
+      localStorage.setItem('personalCount', personalCount)
+      localStorage.setItem('pendingClicks', pendingClicks)
+      localStorage.setItem('maxSeenCount', maxSeen)
 
-clickBtn.addEventListener('click', () => {
-  personalCount++
-  pendingClicks++
-  maxSeen++
-
-  normalCount.textContent = personalCount.toLocaleString()
-  counterEl.textContent = maxSeen.toLocaleString()
-
-  localStorage.setItem('personalCount', personalCount)
-  localStorage.setItem('pendingClicks', pendingClicks)
-  localStorage.setItem('maxSeenCount', maxSeen)
-
-  if (pendingClicks >= 20) {
-    syncClicks()
+      updateSyncingUI()
+      if (pendingClicks >= 20) syncClicks()
+    })
+    clickListenerAttached = true
   }
-})
-
-let syncing = false
+}
 
 async function syncClicks() {
-  if (syncing || pendingClicks === 0) return
-
+  if (syncing || pendingClicks <= 0) return
   syncing = true
 
-  while (pendingClicks > 0) {
-    try {
-      await fetch(`${targetAPI}/up`, { mode: 'no-cors' })
+  updateSyncingUI()
+
+  try {
+    while (pendingClicks > 0) {
+      fetch(`${targetAPI}/up`, { mode: 'no-cors' })
+
       pendingClicks--
       localStorage.setItem('pendingClicks', pendingClicks)
-      updateStatus('Clicker', true)
+
+      if (pendingClicks % 5 === 0) updateSyncingUI()
 
       await new Promise((r) => setTimeout(r, 100))
-    } catch (e) {
-      console.error('Sync interrupted', e)
-      updateStatus('Clicker', false)
-      break
     }
+    updateStatus('Clicker', true)
+  } catch (e) {
+    updateStatus('Clicker', false)
+  } finally {
+    syncing = false
+    updateSyncingUI()
   }
-
-  syncing = false
 }
 
-setInterval(() => {
-  if (pendingClicks > 0) {
-    syncClicks()
-  }
-}, 3000)
+function updateSyncingUI() {
+  const statusEl = document.getElementById('sync-status')
+  const counterEl = document.getElementById('counter')
+  if (!statusEl || !counterEl) return
 
-function setSyncingText() {
-  if (counterEl.textContent === '...') {
+  const isInitialLoad = counterEl.textContent === '...'
+  const hasPending = pendingClicks > 0
+
+  if (isInitialLoad || hasPending || syncing) {
     statusEl.style.opacity = '1'
   } else {
     statusEl.style.opacity = '0'
   }
 }
+
+setInterval(() => {
+  if (pendingClicks > 0) syncClicks()
+}, 3000)
 
 //MAP LOGIC
 let mapInstance = null
@@ -132,7 +141,6 @@ function initMap() {
   const mapContainer = document.getElementById('map')
 
   if (!mapContainer) return
-
 
   if (mapInstance) {
     mapInstance.resize()
@@ -262,6 +270,7 @@ function showPage(id) {
       found = true
 
       if (id === 'home') {
+        if (typeof initClicker === 'function') initClicker()
         if (typeof initMap === 'function') initMap()
         if (typeof updateGithub === 'function') updateGithub()
       }
@@ -272,6 +281,7 @@ function showPage(id) {
 
   if (!found) {
     document.getElementById('home')?.classList.add('active')
+    if (typeof initClicker === 'function') initClicker()
   }
 }
 
