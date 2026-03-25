@@ -365,7 +365,7 @@ h2 a {
   font-size: 0.8rem;
 }
 
-.clicker {
+/*.clicker {
   text-align: center;
   padding: 1rem 0;
 }
@@ -388,7 +388,7 @@ h2 a {
   font-size: 0.85rem;
   color: var(--subtext0);
   font-family: monospace;
-}
+}*/
 
 footer {
   border-top: 1px solid var(--surface0);

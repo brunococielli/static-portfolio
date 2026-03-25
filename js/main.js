@@ -4,15 +4,15 @@ const targetAPI =
   'https://api.counterapi.dev/v1/bruno-cociellis-team-3399/clicks'
 const proxy = 'https://api.allorigins.win/get?url='
 
-let apiCount = 0
+/*let apiCount = 0
 let personalCount = Number(localStorage.getItem('personalCount')) || 0
 let pendingClicks = Number(localStorage.getItem('pendingClicks')) || 0
 let maxSeen = Number(localStorage.getItem('maxSeenCount')) || 0
 let syncing = false
-let clickListenerAttached = false
+let clickListenerAttached = false*/
 
 const systemHealth = {
-  Clicker: true,
+ /* Clicker: true,*/
   Map: true,
   GitHub: true,
 }
@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 //CLICKER LOGIC
-async function initClicker() {
+/*async function initClicker() {
   const counterEl = document.getElementById('counter')
   const normalCount = document.getElementById('normalCount')
   const clickBtn = document.getElementById('clickBtn')
@@ -130,7 +130,7 @@ function updateSyncingUI() {
 
 setInterval(() => {
   if (pendingClicks > 0) syncClicks()
-}, 3000)
+}, 3000)*/
 
 //MAP LOGIC
 let mapInstance = null
