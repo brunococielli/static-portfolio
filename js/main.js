@@ -12,7 +12,7 @@ let syncing = false
 let clickListenerAttached = false*/
 
 const systemHealth = {
- /* Clicker: true,*/
+  /* Clicker: true,*/
   Map: true,
   GitHub: true,
 }
@@ -139,8 +139,11 @@ maptilersdk.config.apiKey = MAPTILER_KEY
 
 function initMap() {
   const mapContainer = document.getElementById('map')
-
   if (!mapContainer) return
+
+  if (mapContainer.offsetParent === null) {
+    return
+  }
 
   if (mapInstance) {
     mapInstance.resize()
@@ -152,18 +155,14 @@ function initMap() {
     style: maptilersdk.MapStyle.DATAVIZ.DARK,
     center: [-47.0608, -22.9064],
     zoom: 11,
-    dragPan: true,
-    scrollZoom: true,
-    doubleClickZoom: true,
-    touchZoomRotate: true,
-    navigationControl: false,
-    geolocateControl: false,
     attributionControl: false,
   })
 
   mapInstance.on('load', () => updateStatus('MapTiler', true))
   mapInstance.on('error', () => updateStatus('MapTiler', false))
 }
+
+window.addEventListener('load', initMap)
 
 function updateLocationTime() {
   const timeEl = document.getElementById('local-time')
@@ -270,7 +269,6 @@ function showPage(id) {
       found = true
 
       if (id === 'home') {
-        /*if (typeof initClicker === 'function') initClicker()*/
         if (typeof initMap === 'function') initMap()
         if (typeof updateGithub === 'function') updateGithub()
       }
@@ -281,7 +279,13 @@ function showPage(id) {
 
   if (!found) {
     document.getElementById('home')?.classList.add('active')
-    /*if (typeof initClicker === 'function') initClicker()*/
+
+    history.replaceState(null, null, '#home')
+
+    updateActiveLink('home')
+
+    if (typeof initMap === 'function') initMap()
+    if (typeof updateGithub === 'function') updateGithub()
   }
 }
 
