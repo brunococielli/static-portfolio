@@ -614,7 +614,13 @@ footer {
   line-height: 1.4;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; 
   overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.8em; 
+  word-break: break-word; 
+  max-width: 100%;
+  line-clamp: 2;
 }
 
 .page {
