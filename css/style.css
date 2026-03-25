@@ -71,12 +71,19 @@ body {
     background-color 0.3s ease,
     color 0.3s ease;
   -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 a {
@@ -385,12 +392,15 @@ h2 a {
 
 footer {
   border-top: 1px solid var(--surface0);
-  padding-top: 1.5rem;
+  padding: 1.5rem 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-family: monospace;
   font-size: 0.8rem;
   color: var(--subtext0);
+  margin-top: auto;
+  width: 100%;
 }
 .status {
   display: flex;
@@ -402,14 +412,12 @@ footer {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--green);
-  transition: background-color 0.3s ease;
-  box-shadow: 0 0 8px var(--green);
+  background-color: #a6e3a1;
+  box-shadow: 0 0 8px #a6e3a166;
 }
-
 .dot-offline {
-  background-color: var(--red) !important;
-  box-shadow: 0 0 8px var(--red) !important;
+  background-color: #f38ba8 !important;
+  box-shadow: 0 0 8px #f38ba866 !important;
 }
 
 .color {
@@ -620,18 +628,29 @@ footer {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .icon-folder {
-  width: 24px;   
+  width: 24px;
   height: 24px;
-  color: var(--accent); 
+  color: var(--accent);
   display: inline-block;
   vertical-align: middle;
 }
 
 a:hover .icon-folder {
   filter: brightness(1.2);
+}
+
+main,
+.content-wrapper {
+  flex: 1;
 }
