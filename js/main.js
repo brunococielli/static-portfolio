@@ -270,7 +270,7 @@ function showPage(id) {
       found = true
 
       if (id === 'home') {
-        if (typeof initClicker === 'function') initClicker()
+        /*if (typeof initClicker === 'function') initClicker()*/
         if (typeof initMap === 'function') initMap()
         if (typeof updateGithub === 'function') updateGithub()
       }
@@ -281,7 +281,7 @@ function showPage(id) {
 
   if (!found) {
     document.getElementById('home')?.classList.add('active')
-    if (typeof initClicker === 'function') initClicker()
+    /*if (typeof initClicker === 'function') initClicker()*/
   }
 }
 
