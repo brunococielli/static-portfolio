@@ -170,7 +170,7 @@
 
               <span class="divider">|</span>
 
-              <a href="mailto:cociellited@gmail.com" class="social-link">
+              <button class="social-link email-button" id="email-btn" onclick="copyEmail()">
                 <svg
                   class="social-icon"
                   viewBox="0 0 24 24"
@@ -181,7 +181,8 @@
                   />
                 </svg>
                 <span>Gmail</span>
-              </a>
+                <span class="tooltip" id="copy-tooltip">Copied!</span>
+              </button>
             </div>
           </header>
 

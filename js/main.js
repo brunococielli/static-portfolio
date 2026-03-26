@@ -325,3 +325,18 @@ links.forEach((link) => {
 
 handleRoute()
 window.addEventListener('hashchange', handleRoute)
+
+//EMAIL COPY LOGIC
+
+function copyEmail() {
+  const email = 'cociellited@gmail.com'
+  const tooltip = document.getElementById('copy-tooltip')
+
+  navigator.clipboard.writeText(email).then(() => {
+    tooltip.classList.add('show')
+
+    setTimeout(() => {
+      tooltip.classList.remove('show')
+    }, 2000)
+  })
+}
