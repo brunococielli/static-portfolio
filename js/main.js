@@ -327,7 +327,6 @@ handleRoute()
 window.addEventListener('hashchange', handleRoute)
 
 //EMAIL COPY LOGIC
-
 function copyEmail() {
   const email = 'cociellited@gmail.com'
   const tooltip = document.getElementById('copy-tooltip')
