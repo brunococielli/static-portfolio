@@ -313,6 +313,10 @@ function handleRoute() {
 
 links.forEach((link) => {
   link.addEventListener('click', (e) => {
+    if (link.classList.contains('external-link')) {
+      return
+    }
+
     e.preventDefault()
     const target = link.getAttribute('href')
     window.location.hash = target
