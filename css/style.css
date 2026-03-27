@@ -247,7 +247,8 @@ h1 {
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--accent);
-  color: #fff;
+  color: var(--bg);
+  font-weight: 1000;
   padding: 4px 10px;
   border-radius: 4px;
   font-size: 0.75rem;
