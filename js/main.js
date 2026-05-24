@@ -190,45 +190,71 @@ async function updateGithub() {
     const response = await fetch(
       `https://api.github.com/users/${GH_USER}/events/public`
     )
+
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.status}`)
+    }
+
     const events = await response.json()
+
     const lastPush = events.find((e) => e.type === 'PushEvent')
 
-    if (lastPush) {
-      const repoPath = lastPush.repo.name
-      const repoName = repoPath.split('/')[1]
-      const commitSha = lastPush.payload.head
-      const commitRes = await fetch(
-        `https://api.github.com/repos/${repoPath}/commits/${commitSha}`
-      )
-      const commitData = await commitRes.json()
-
-      document.getElementById('gh-repo').textContent = repoName
+    if (!lastPush) {
       document.getElementById('gh-message').textContent =
-        commitData.commit.message
-      document.getElementById('gh-date').innerHTML =
-        `${timeAgo(new Date(lastPush.created_at))} <span style="opacity:0.4; font-size:0.7rem;">[${commitSha.substring(0, 7)}]</span>`
-
-      document.getElementById('gh-link').href = `https://github.com/${repoPath}`
-
-      updateStatus('GitHub', true)
+        'No recent public pushes'
+      return
     }
+
+    const repoPath = lastPush.repo.name
+    const repoName = repoPath.split('/')[1]
+    const commitSha = lastPush.payload.head
+
+    const commitRes = await fetch(
+      `https://api.github.com/repos/${repoPath}/commits/${commitSha}`
+    )
+
+    if (!commitRes.ok) {
+      throw new Error(`Commit API error: ${commitRes.status}`)
+    }
+
+    const commitData = await commitRes.json()
+
+    document.getElementById('gh-repo').textContent = repoName
+
+    document.getElementById('gh-message').textContent =
+      commitData.commit.message
+
+    document.getElementById('gh-date').innerHTML =
+      `${timeAgo(new Date(lastPush.created_at))}
+      <span style="opacity:0.4;font-size:0.7rem;">
+        [${commitSha.substring(0, 7)}]
+      </span>`
+
+    document.getElementById('gh-link').href = `https://github.com/${repoPath}`
   } catch (e) {
     console.error('GH Error:', e)
-    updateStatus('GitHub', false)
+
+    document.getElementById('gh-message').textContent =
+      'Failed to load GitHub activity'
   }
 }
 
 function timeAgo(date) {
   const seconds = Math.floor((new Date() - date) / 1000)
+
   let interval = Math.floor(seconds / 3600)
   if (interval >= 1) return interval + 'h ago'
+
   interval = Math.floor(seconds / 60)
   if (interval >= 1) return interval + 'm ago'
+
   return Math.floor(seconds) + 's ago'
 }
 
-updateGithub()
-setInterval(updateGithub, 300000)
+window.addEventListener('DOMContentLoaded', () => {
+  updateGithub()
+  setInterval(updateGithub, 300000)
+})
 
 //DOT LOGIC
 function updateStatus(apiName, isSuccessful) {
